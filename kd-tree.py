@@ -1,5 +1,3 @@
-from operator import itemgetter
-
 def printPreorder(node):
 
     if node:
@@ -24,7 +22,7 @@ def kdtree(point_list, depth=0):
 
     axis = depth % k
 
-    point_list.sort(key=itemgetter(axis))
+    point_list.sort(key=lambda x: x[axis])
     
     l = len(point_list)
     if l%2 == 0:
