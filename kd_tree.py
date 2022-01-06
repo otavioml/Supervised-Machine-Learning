@@ -1,5 +1,8 @@
 import numpy as np
 import heapq
+import read_files
+
+
 
 def euclideanDistance(a, b):
     return np.linalg.norm(np.asarray(a)-np.asarray(b))
@@ -95,13 +98,3 @@ tree = kdtree(point_list)
 pq = k_nearest(3, point, tree)
 
 print(pq)
-
-
-
-
-# x = 1
-# for i in point_list:
-#     print(x)
-#     print(i)
-#     print(euclideanDistance(point, i))
-#     x+=1
