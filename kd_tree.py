@@ -42,9 +42,3 @@ class Kdtree():
     def buildKdtree(self, point_list):
         self.root = kdtree(point_list)
 
-kdt = Kdtree()
-point_list = [(6.7,5.3), (1.8,3.6), (4.8,1), (7.6,4.5), (6.7,4.3), (3.4,7), (5.9,3), (4.6,4.2), (2,8.9), (3.7,8.6)]
-kdt.buildKdtree(point_list)
-
-# printPreorder(kdt.root)
-
