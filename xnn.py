@@ -92,7 +92,7 @@ class Xnn():
 
     def getStatisticsFromTestPoints(self, test_point_list, classifications):
 
-        k = 3
+        k = 7
         tp = fp = tn = fn = 0
         dimensions = getDimensions(test_point_list)
         i = 0

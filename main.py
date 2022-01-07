@@ -1,7 +1,8 @@
 from read_files import *
 from xnn import *
 
-databases = ['appendicitis', 'banana', 'haberman', 'pima', 'titanic']
+databases = ['appendicitis', 'banana', 'haberman', 'pima', 'led7digit', 'monk-2', 'heart', 'wdbc', 'phoneme', 'iris', 'ecoli']
+# databases = ['ecoli']
 
 for database in databases:
     print('Database: ' + database)
