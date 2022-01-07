@@ -1,6 +1,7 @@
 import numpy as np
+import random
 
-def dataPoints(filename):
+def getDataPoints(filename):
     data = np.loadtxt(filename, delimiter=',', dtype=str)
 
     listofpoints = []
@@ -23,12 +24,12 @@ def dataPoints(filename):
 def getDimensions(data):
     return len(data[0])
 
-listofpoints = dataPoints('data/haberman.dat')
+def getTrainingAndTestsPoints(data):
 
-print(listofpoints)
-print(type(listofpoints))
-print(type(listofpoints[0]))
-print(listofpoints[0])
-print(listofpoints[-1])
+    seventyPercent = int((70/100)*len(data))
+    random.shuffle(data)
 
-print("Dimensions: " + str(getDimensions(listofpoints)))
+    trainingPoints = data[:seventyPercent]
+    testPoints = data[seventyPercent + 1:]
+
+    return trainingPoints, testPoints
