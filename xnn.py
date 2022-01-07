@@ -1,6 +1,7 @@
 import numpy as np
 import heapq
-from kd_tree import Node, Kdtree
+from kd_tree import Node
+from read_files import getDimensions
 from statistics import mode
 
 def euclideanDistance(a, b):
@@ -15,7 +16,7 @@ def k_nearestAux(dimensions, k, point, current_node, priority_queue=[], depth=0)
             # print("*****")
             # print("Current node value: ")
             # print(current_node.value)
-            distance = euclideanDistance(point, current_node.value[:dimensions-1])
+            distance = euclideanDistance(point[:dimensions-1], current_node.value[:dimensions-1])
             # print("Distance: " + str(distance))
             # print("Priority queue")
             # print(priority_queue)
@@ -88,4 +89,33 @@ class Xnn():
             temp.append(p[1][dimensions-1])
 
         return mode(temp)
+
+    def getStatisticsFromTestPoints(self, test_point_list, classifications):
+
+        k = 3
+        tp = fp = tn = fn = 0
+        dimensions = getDimensions(test_point_list)
+        i = 0
+        for point in test_point_list:
+            self.k_nearest(dimensions, k, point, self.kdtree)
+            classification = self.getClassificationFromPQ(dimensions)
+            if point[dimensions-1] == classifications[0]:
+                if classification == point[dimensions-1]:
+                    tp += 1
+                else:
+                    fn += 1
+            else:
+                if classification == point[dimensions-1]:
+                    tn += 1
+                else:
+                    fp += 1
         
+        precision = tp/(tp + fp) * 100
+        revocation = tp/(tp+fn) * 100
+        accuracy = (tp+tn)/(tp+tn+fp+fn) * 100
+
+        print("Quantidades de vizinhos próximos calculados: ", k)
+        print("Precisão: ", round(precision, 2), "%")
+        print("Revocação: ", round(revocation, 2), "%")
+        print("Acurácia: ", round(accuracy, 2), "%")
+

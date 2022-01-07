@@ -33,3 +33,13 @@ def getTrainingAndTestsPoints(data):
     testPoints = data[seventyPercent + 1:]
 
     return trainingPoints, testPoints
+
+def getUniqueClasses(data):
+    classes = []
+    dimension = getDimensions(data)
+
+    for p in data:
+        if classes.count(p[dimension-1]) == 0:
+            classes.append(p[dimension-1])
+
+    return classes
