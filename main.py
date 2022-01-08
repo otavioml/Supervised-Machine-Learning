@@ -1,8 +1,7 @@
 from read_files import *
 from xnn import *
 
-databases = ['appendicitis', 'banana', 'haberman', 'pima', 'led7digit', 'monk-2', 'heart', 'wdbc', 'phoneme', 'iris', 'ecoli']
-# databases = ['ecoli']
+databases = ['appendicitis', 'haberman', 'pima', 'led7digit', 'monk-2', 'heart', 'wdbc', 'phoneme', 'iris', 'ecoli', 'banana']
 
 for database in databases:
     print('Database: ' + database)
@@ -11,8 +10,4 @@ for database in databases:
 
     xnn = Xnn(priority_queue=[], kdtree=None)
     xnn.buildKdtree(trainingPoints)
-    xnn.getStatisticsFromTestPoints(testPoints, getUniqueClasses(testPoints))
-
-# xnn.k_nearest(getDimensions(trainingPoints), 5, point, xnn.kdtree)
-
-# print(xnn.getClassificationFromPQ(getDimensions(trainingPoints)))
+    xnn.getStatisticsFromTestPoints(5, testPoints, getUniqueClasses(testPoints))
