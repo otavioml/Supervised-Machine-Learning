@@ -86,7 +86,6 @@ class Xnn():
             precision = revocation = 0
             accuracy = (tp+tn)/(tp+tn+fp+fn) * 100
 
-        print("Quantidades de vizinhos próximos calculados: ", k)
         print("Precisão: ", round(precision, 2), "%")
         print("Revocação: ", round(revocation, 2), "%")
         print("Acurácia: ", round(accuracy, 2), "%")
