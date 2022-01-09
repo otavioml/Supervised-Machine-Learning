@@ -1,3 +1,5 @@
+Documentação completa em Documentacao.pdf
+
 Trabalho Prático 1
 
 Aplicações de Algoritmos Geométricos
