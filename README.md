@@ -30,8 +30,6 @@ Os arquivos tiveram que ser alterados, retirando a documentação sobre as vari�
 Todos os valores dos pontos do arquivo são lidos como String, mas a função identifica floats e altera seus tipos, permitindo que a base de dados seja usada na construção da árvore kd, que será explicada posteriormente.
 
 
-Imagem 1:função para leitura de dados.
-
 `	`A função retorna uma lista, onde cada elemento é uma tupla que contém todos os valores dos eixos do ponto e a classe. Todos os pontos de todas as bases utilizadas são identificados por uma classe que sempre está localizada na última dimensão do ponto. Ou seja, se um ponto com 5 dimensões é lido de uma base de dados, o valor disponível na 5ª dimensão é a sua classificação e as 4 dimensões restantes são utilizadas para a construção e busca no algoritmo.
 
 `	`Exemplo de um ponto: (3.7, 4.5, 2.8, ‘positive’)
@@ -40,13 +38,7 @@ Imagem 1:função para leitura de dados.
 
 `	`A função GetTrainingAndTestsPoints divide os dados, onde 70% são pontos de treinamento e 30% são pontos de teste. A função random.shuffle(data) foi utilizada para manter a aleatoriedade da seleção dos pontos a cada execução do algoritmo.
 
-Imagem 2: função para selecionar pontos de treinamento e teste.
-
-
 `	`No mesmo arquivo, é implementado uma função getUniqueClasses que captura todas as classificações de pontos da base de dados, retornando uma lista que será usada posteriormente para avaliar a precisão do algoritmo. Sabemos previamente que a classificação dos pontos está presente na sua última dimensão, logo basta percorrer todos os pontos e selecionar as classificações.
-
-Imagem 3: função para capturar todas as classificações dos pontos da base de dados.
-
 
 `    `2.2. Árvore Kd
 
@@ -60,27 +52,15 @@ O algoritmo para a construção da árvore é executado novamente de forma recur
 
 Quando o algoritmo recebe apenas um espaço com apenas 1 ponto, ele é armazenado no nó folha com todas as suas coordenadas, ao contrário dos nós internos que armazenam o valor de apenas uma coordenada.
 
-Imagem 4: função para construir a árvore kd.
-
-
-
 `	`A função implementada acima, presente no arquivo kd\_tree.py,  segue os mesmos passos da explicação anterior. 
 
 `	`Essa estrutura de dados foi escolhida para armazenar os pontos, pois, apesar de usar mais espaço, é mais eficiente para a busca de pontos próximos. Sabendo o valor das coordenadas de um ponto **P**, podemos percorrer a árvore ignorando áreas do espaço em que há certeza que não há pontos próximos.
-
-
-Imagem 5: classes Node e Kdtree.
 
 `	`No mesmo arquivo está a declaração das classes Node e Kdtree. A classe Node segue a implementação padrão como qualquer árvore binária. Já a classe Kdtree possui apenas uma função que constrói a árvore por completo e retorna o Nó raiz.
 
 `	`Como exemplificação, podemos tomar 10 pontos em um plano bidimensional e construir a árvore para facilitar a visualização.
 
-Imagem 6: plano com os pontos.
-
 `	`Cada divisão está numerada. É possível perceber que a cada iteração, uma das duas dimensões é dividida.
-
-
-Imagem 7: exemplo de árvore kd.
 
 Os pontos 9 e 1 foram separados em espaços diferentes na primeira divisão, logo estão em subárvores diferentes desde o primeiro nó.
 
@@ -111,21 +91,12 @@ Após a fila de prioridades estar cheia e não haver nenhuma subárvore com pont
 
 A fila de prioridades é uma lista de tuplas, onde o primeiro elemento é a distância entre os pontos e o segundo é o ponto em si. Dessa forma, é possível organizar os pontos de forma eficiente.
 
-Imagem 8: função recursiva para capturar os x vizinhos mais próximos.
-
-
-
 `	`A fila de prioridades é construída de forma que o ponto com menor prioridade esteja na primeira posição da fila. Por isso é adicionado o valor negativo da distância euclidiana na fila para manter a ordem invertida.
 
 
 - Xnn.getClassificationFromPQ (método para classificação do ponto):
 
 `	`Com os K vizinhos mais próximos armazenados em xnn.priority\_queue, podemos pegar suas classificações. A classificação mais frequente dentre todos os pontos próximos será aquela em que o modelo classifica o ponto de teste.
-
-
-Imagem 9: função para classificação do ponto de teste.
-
-
 
 - Xnn.getStatisticsFromTestPoints (método para avaliar o modelo):
 
@@ -134,9 +105,6 @@ Imagem 9: função para classificação do ponto de teste.
 `	`A primeira classe recebida pela lista de classificação é utilizada como sendo a classe positiva e as classes diferentes dela são as negativas. Classes positivas classificadas corretamente são consideradas verdadeiras positivas. Caso contrário, são falsos negativos. Classes negativas classificadas corretamente são consideradas verdadeiros negativos. Caso contrário, são falsos positivos.
 
 `	`Sabendo a quantidade de verdadeiros positivos e negativos e falsos positivos e negativos, podemos calcular as estatísticas de teste como precisão, revocação e acurácia.
-
-
-Imagem 10: função para avaliação estatística do modelo.
 
 3. Análises
 
