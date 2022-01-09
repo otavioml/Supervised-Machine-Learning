@@ -1,6 +1,6 @@
 import numpy as np
 import heapq
-from kd_tree import Node
+from kd_tree import Kdtree, Node
 from read_files import getDimensions
 from statistics import mode
 
@@ -41,39 +41,14 @@ def k_nearestAux(dimensions, k, point, current_node, priority_queue=[], depth=0)
 
         return priority_queue
 
-def kdtree(point_list, depth=0):
-    try:
-        k = len(point_list[0]) - 1
-    except IndexError as e:
-        return None
-
-    if len(point_list) == 1:
-        return Node(value=point_list[0],left=None,right=None)
-
-    axis = depth % k
-
-    point_list.sort(key=lambda x: x[axis])
-    
-    l = len(point_list)
-    if l%2 == 0:
-        median = int((l/2)-1)
-    else:
-        median = l // 2
-
-    return Node(
-        value=point_list[median][axis],
-        left=kdtree(point_list[:median+1], depth + 1),
-        right=kdtree(point_list[median + 1:], depth + 1)
-    )
-
 class Xnn():
 
-    def __init__(self, priority_queue, kdtree):
+    def __init__(self, priority_queue):
         self.priority_queue = priority_queue
-        self.kdtree = kdtree
+        self.kdtree = None
 
     def buildKdtree(self, point_list):
-        self.kdtree = kdtree(point_list)
+        self.kdtree = Kdtree.buildKdtree(point_list)
 
     def k_nearest(self, dimensions, k, point, current_node):
         self.priority_queue = k_nearestAux(dimensions, k, point, current_node, self.priority_queue, depth=0)
@@ -115,35 +90,3 @@ class Xnn():
         print("Precisão: ", round(precision, 2), "%")
         print("Revocação: ", round(revocation, 2), "%")
         print("Acurácia: ", round(accuracy, 2), "%")
-
-
-
-
-
-
-
-
-
-
-# def k_nearestAux(dimensions, k, point, current_node, priority_queue=[], depth=0):
-
-#         axis = depth % dimensions
-#         depth += 1
-
-#         if current_node.left == None and current_node.right == None:
-#             distance = euclideanDistance(point[:dimensions-1], current_node.value[:dimensions-1])
-#             if len(priority_queue) < k:
-#                 heapq.heappush(priority_queue, (-distance,current_node.value))
-#                 priority_queue = sorted(priority_queue)
-
-#             elif -distance < -priority_queue[0][0]:
-#                 heapq.heappushpop(priority_queue, (-distance, current_node.value))
-#                 priority_queue = sorted(priority_queue)
-
-#             return priority_queue
-
-#         else:
-#             priority_queue = k_nearestAux(dimensions, k, point, current_node.right, priority_queue, depth)
-#             priority_queue = k_nearestAux(dimensions, k, point, current_node.left, priority_queue, depth)
-
-#         return priority_queue

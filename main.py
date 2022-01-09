@@ -1,3 +1,4 @@
+from kd_tree import Kdtree, printPreorder
 from read_files import *
 from xnn import *
 
@@ -8,6 +9,6 @@ for database in databases:
     point_list = getDataPoints('data/' + database + '.dat')
     trainingPoints, testPoints = getTrainingAndTestsPoints(point_list)
 
-    xnn = Xnn(priority_queue=[], kdtree=None)
+    xnn = Xnn(priority_queue=[])
     xnn.buildKdtree(trainingPoints)
     xnn.getStatisticsFromTestPoints(5, testPoints, getUniqueClasses(testPoints))

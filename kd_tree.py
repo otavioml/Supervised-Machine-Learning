@@ -36,9 +36,7 @@ def kdtree(point_list, depth=0):
         right=kdtree(point_list[median + 1:], depth + 1)
     )
 class Kdtree():
-    def _init__(self, root):
-        self.root = root
 
-    def buildKdtree(self, point_list):
-        self.root = kdtree(point_list)
+    def buildKdtree(point_list):
+        return kdtree(point_list)
 
